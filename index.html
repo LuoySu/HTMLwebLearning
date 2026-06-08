@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>鸣潮角色宣传页</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Serif+SC:wght@400;500;700&display=swap");
+
+      :root {
+        --bg: #07080d;
+        --panel-border: rgba(255, 255, 255, 0.12);
+        --panel-shadow: rgba(0, 0, 0, 0.5);
+        --text-main: #f5f1eb;
+        --text-muted: rgba(245, 241, 235, 0.74);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background:
+          radial-gradient(circle at top, rgba(125, 166, 255, 0.14), transparent 28%),
+          radial-gradient(circle at bottom, rgba(255, 122, 174, 0.12), transparent 26%),
+          linear-gradient(135deg, #05060a 0%, #090c13 44%, #05060a 100%);
+        color: var(--text-main);
+        font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", serif;
+        overflow: hidden;
+      }
+
+      body::before,
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      body::before {
+        background:
+          linear-gradient(90deg, transparent 0 24.8%, rgba(255, 255, 255, 0.035) 24.8% 25%, transparent 25% 49.8%, rgba(255, 255, 255, 0.035) 49.8% 50%, transparent 50% 74.8%, rgba(255, 255, 255, 0.035) 74.8% 75%, transparent 75% 100%),
+          repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0 1px, transparent 1px 4px);
+        mix-blend-mode: soft-light;
+        opacity: 0.5;
+      }
+
+      body::after {
+        background:
+          radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.1), transparent 18%),
+          radial-gradient(circle at 80% 24%, rgba(255, 255, 255, 0.08), transparent 16%),
+          radial-gradient(circle at 48% 82%, rgba(255, 255, 255, 0.08), transparent 18%);
+        filter: blur(40px);
+        opacity: 0.35;
+      }
+
+      .hero {
+        position: relative;
+        min-height: 100vh;
+        padding: 18px;
+        isolation: isolate;
+      }
+
+      .hero-copy {
+        position: absolute;
+        top: 28px;
+        left: 28px;
+        right: 28px;
+        z-index: 5;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 24px;
+        pointer-events: none;
+      }
+
+      .eyebrow,
+      .side-note {
+        margin: 0;
+        color: var(--text-muted);
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+
+      .title-block h1 {
+        margin: 12px 0 8px;
+        font-family: "Bebas Neue", "Arial Narrow", sans-serif;
+        font-size: clamp(76px, 12vw, 186px);
+        line-height: 0.84;
+        letter-spacing: 0.1em;
+        font-weight: 400;
+        text-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+      }
+
+      .title-block p {
+        margin: 0;
+        max-width: 520px;
+        color: var(--text-muted);
+        font-size: clamp(14px, 1.4vw, 18px);
+        line-height: 1.7;
+      }
+
+      .side-note {
+        max-width: 240px;
+        text-align: right;
+        line-height: 1.8;
+      }
+
+      .showcase {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        min-height: calc(100vh - 36px);
+      }
+
+      .panel {
+        position: relative;
+        border: 1px solid var(--panel-border);
+        background: rgba(8, 10, 18, 0.55);
+        overflow: hidden;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 22px 60px var(--panel-shadow);
+        isolation: isolate;
+        transition:
+          transform 320ms ease,
+          border-color 320ms ease,
+          box-shadow 320ms ease;
+      }
+
+      .showcase:hover .panel:not(:hover) {
+        transform: scale(0.988);
+      }
+
+      .panel::before,
+      .panel::after,
+      .panel-bg::before,
+      .panel-bg::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        transition:
+          opacity 360ms ease,
+          transform 360ms ease;
+      }
+
+      .panel::before {
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 18%),
+          linear-gradient(90deg, transparent 0 14%, rgba(255, 255, 255, 0.08) 14% 14.35%, transparent 14.35% 85.65%, rgba(255, 255, 255, 0.08) 85.65% 86%, transparent 86%);
+        z-index: 4;
+        opacity: 0.58;
+      }
+
+      .panel::after {
+        background:
+          linear-gradient(180deg, rgba(2, 4, 9, 0.08) 0%, rgba(2, 4, 9, 0.1) 36%, rgba(2, 4, 9, 0.82) 100%);
+        z-index: 1;
+        opacity: 1;
+      }
+
+      .panel:hover::before,
+      .panel:focus-within::before {
+        opacity: 0.9;
+      }
+
+      .panel:hover::after,
+      .panel:focus-within::after {
+        opacity: 1;
+      }
+
+      .panel:hover,
+      .panel:focus-within {
+        border-color: color-mix(in srgb, var(--tone) 44%, white);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.08),
+          0 28px 64px rgba(0, 0, 0, 0.62),
+          0 0 0 1px color-mix(in srgb, var(--tone) 18%, transparent);
+      }
+
+      .panel-bg {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, color-mix(in srgb, var(--tone) 18%, rgba(255, 255, 255, 0.03)), transparent 22%),
+          radial-gradient(circle at 50% 10%, color-mix(in srgb, var(--tone) 28%, white), transparent 30%),
+          linear-gradient(180deg, rgba(5, 7, 12, 0.04), rgba(5, 7, 12, 0.16));
+        opacity: 1;
+      }
+
+      .panel-bg::before {
+        background:
+          radial-gradient(circle at 50% 100%, color-mix(in srgb, var(--tone) 28%, transparent), transparent 52%),
+          linear-gradient(180deg, transparent 0 62%, rgba(5, 7, 12, 0.12) 76%, rgba(5, 7, 12, 0.72) 100%);
+        z-index: 2;
+      }
+
+      .panel-bg::after {
+        inset: auto 18px 18px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.42), transparent);
+        opacity: 0.45;
+        z-index: 4;
+      }
+
+      .panel-grid {
+        position: absolute;
+        inset: 0;
+        background:
+          repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 52px),
+          repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 52px);
+        mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.1), #000 25%, #000 75%, rgba(0, 0, 0, 0.1));
+        opacity: 0.16;
+        z-index: 3;
+      }
+
+      .portrait-wrap {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+      }
+
+      .portrait {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: var(--focus-x, 50%) var(--focus-y, 50%);
+        filter:
+          brightness(0.96)
+          saturate(1.04)
+          contrast(1.06);
+        transform: scale(var(--scale, 1.08)) translateY(var(--offset-y, 0));
+        transition:
+          filter 360ms ease,
+          transform 360ms ease,
+          opacity 360ms ease;
+      }
+
+      .panel:hover .portrait,
+      .panel:focus-within .portrait {
+        filter:
+          brightness(0.54)
+          saturate(0.88)
+          contrast(1.08);
+        transform: scale(calc(var(--scale, 1.08) * 1.02)) translateY(var(--offset-y-hover, -4px));
+      }
+
+      .panel-content {
+        position: absolute;
+        inset: 0;
+        z-index: 5;
+        padding: 20px 20px 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .index {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "Bebas Neue", "Arial Narrow", sans-serif;
+        font-size: 17px;
+        letter-spacing: 0.22em;
+        color: rgba(255, 255, 255, 0.8);
+        padding: 8px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(8, 10, 18, 0.2);
+        width: fit-content;
+        backdrop-filter: blur(12px);
+      }
+
+      .index::before {
+        content: "";
+        width: 26px;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.5);
+      }
+
+      .copy-stack {
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .name {
+        margin: 0;
+        font-size: clamp(28px, 2vw, 40px);
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-shadow: 0 14px 24px rgba(0, 0, 0, 0.52);
+      }
+
+      .roman {
+        margin: 0;
+        color: color-mix(in srgb, var(--tone) 58%, white);
+        font-family: "Bebas Neue", "Arial Narrow", sans-serif;
+        font-size: clamp(18px, 1.35vw, 24px);
+        letter-spacing: 0.18em;
+      }
+
+      .tagline {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.88);
+        font-size: 13px;
+        line-height: 1.7;
+        max-width: 17ch;
+        padding: 12px 14px;
+        border-left: 1px solid rgba(255, 255, 255, 0.18);
+        background: linear-gradient(90deg, rgba(7, 9, 15, 0.56), rgba(7, 9, 15, 0.1));
+        backdrop-filter: blur(10px);
+      }
+
+      .panel:hover .name,
+      .panel:hover .roman {
+        text-shadow: 0 0 24px color-mix(in srgb, var(--tone) 36%, transparent);
+      }
+
+      .panel:hover .tagline,
+      .panel:focus-within .tagline {
+        border-left-color: color-mix(in srgb, var(--tone) 44%, white);
+      }
+
+      .footer-note {
+        position: absolute;
+        left: 28px;
+        right: 28px;
+        bottom: 24px;
+        z-index: 5;
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        color: rgba(255, 255, 255, 0.42);
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        pointer-events: none;
+      }
+
+      .panel.is-fallback .portrait {
+        display: none;
+      }
+
+      .panel.is-fallback .portrait-wrap::before {
+        content: attr(data-fallback);
+        display: grid;
+        place-items: center;
+        width: min(280px, 78%);
+        height: 100%;
+        margin: 0 auto;
+        border-inline: 1px solid rgba(255, 255, 255, 0.14);
+        background:
+          radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.18), transparent 34%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+        color: rgba(255, 255, 255, 0.64);
+        font-family: "Bebas Neue", "Arial Narrow", sans-serif;
+        letter-spacing: 0.24em;
+        font-size: 24px;
+      }
+
+      @media (max-width: 980px) {
+        html,
+        body {
+          overflow: auto;
+        }
+
+        .hero {
+          min-height: auto;
+          padding: 18px;
+        }
+
+        .hero-copy {
+          position: relative;
+          inset: auto;
+          display: block;
+          margin-bottom: 18px;
+        }
+
+        .title-block p,
+        .side-note {
+          max-width: none;
+        }
+
+        .side-note {
+          margin-top: 12px;
+          text-align: left;
+        }
+
+        .showcase {
+          min-height: auto;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          grid-auto-rows: minmax(460px, 72vh);
+        }
+
+        .footer-note {
+          position: relative;
+          left: auto;
+          right: auto;
+          bottom: auto;
+          margin-top: 14px;
+          padding-bottom: 10px;
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 620px) {
+        .showcase {
+          grid-template-columns: 1fr;
+          grid-auto-rows: minmax(500px, 84vh);
+        }
+
+        .hero-copy {
+          gap: 12px;
+        }
+
+        .panel-content {
+          padding: 18px 18px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="hero">
+      <section class="hero-copy">
+        <div class="title-block">
+          <p class="eyebrow">WUTHERING WAVES / CHARACTER PROMO</p>
+          <h1>RADIANT<br />FOUR</h1>
+          <p>
+            四联屏游戏官网宣传页示例。桌面端从左到右依次为爱弥斯、达妮娅、琳奈、莫宁，鼠标悬停在对应分栏时，角色立绘执行降亮处理。
+          </p>
+        </div>
+        <p class="side-note">
+          DESIGNED AS A HIGH-CONTRAST LANDING HERO
+          <br />
+          WITH SPLIT PANELS / GLOW / SCANLINE ATMOSPHERE
+        </p>
+      </section>
+
+      <section class="showcase">
+        <article
+          class="panel"
+          style="--tone: #ff93c2; --focus-x: 54%; --focus-y: 48%; --scale: 1.14; --offset-y: 10px; --offset-y-hover: 2px;"
+        >
+          <div class="panel-bg"></div>
+          <div class="panel-grid"></div>
+          <div class="portrait-wrap" data-fallback="AEMEATH">
+             <img
+               class="portrait"
+               src="./assets/characters/aemeath.jpg"
+               alt="爱弥斯立绘"
+             />
+          </div>
+          <div class="panel-content">
+            <div class="index">01</div>
+            <div class="copy-stack">
+              <h2 class="name">爱弥斯</h2>
+              <p class="roman">AEMEATH</p>
+              <p class="tagline">但愿我有让你感到骄傲，但愿我没有让你失望。</p>
+            </div>
+          </div>
+        </article>
+
+        <article
+          class="panel"
+          style="--tone: #de9fb7; --focus-x: 50%; --focus-y: 48%; --scale: 1.08; --offset-y: 8px; --offset-y-hover: 0px;"
+        >
+          <div class="panel-bg"></div>
+          <div class="panel-grid"></div>
+          <div class="portrait-wrap" data-fallback="DENIA">
+             <img
+               class="portrait"
+               src="./assets/characters/denia.jpg"
+               alt="达妮娅立绘"
+             />
+          </div>
+          <div class="panel-content">
+            <div class="index">02</div>
+            <div class="copy-stack">
+              <h2 class="name">达妮娅</h2>
+              <p class="roman">DENIA</p>
+              <p class="tagline">舞台感和深酒红背景更适合做中段视觉转折。</p>
+            </div>
+          </div>
+        </article>
+
+        <article
+          class="panel"
+          style="--tone: #72e1d5; --focus-x: 50%; --focus-y: 46%; --scale: 1.12; --offset-y: 12px; --offset-y-hover: 4px;"
+        >
+          <div class="panel-bg"></div>
+          <div class="panel-grid"></div>
+          <div class="portrait-wrap" data-fallback="LYNAE">
+             <img
+               class="portrait"
+               src="./assets/characters/lynae.jpg"
+               alt="琳奈立绘"
+             />
+          </div>
+          <div class="panel-content">
+            <div class="index">03</div>
+            <div class="copy-stack">
+              <h2 class="name">琳奈</h2>
+              <p class="roman">LYNAE</p>
+              <p class="tagline">青绿霓虹拉开冷调区间，让第三屏更轻更锋利。</p>
+            </div>
+          </div>
+        </article>
+
+        <article
+          class="panel"
+          style="--tone: #8da6ff; --focus-x: 48%; --focus-y: 44%; --scale: 1.14; --offset-y: 0px; --offset-y-hover: -4px;"
+        >
+          <div class="panel-bg"></div>
+          <div class="panel-grid"></div>
+          <div class="portrait-wrap" data-fallback="MORNYE">
+             <img
+               class="portrait"
+               src="./assets/characters/mornye.jpg"
+               alt="莫宁立绘"
+             />
+          </div>
+          <div class="panel-content">
+            <div class="index">04</div>
+            <div class="copy-stack">
+              <h2 class="name">莫宁</h2>
+              <p class="roman">MORNYE</p>
+              <p class="tagline">深空黑蓝收尾，最后一屏保留更强的宇宙静压感。</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <div class="footer-note">
+       <span>Hover A Panel To Trigger Brightness Downshift On The Matching Portrait</span>
+       <span>Portrait assets are bundled locally for stable preview, with fallback placeholders retained</span>
+      </div>
+    </main>
+
+    <script>
+      document.querySelectorAll(".portrait").forEach((image) => {
+        image.addEventListener("error", () => {
+          image.closest(".panel")?.classList.add("is-fallback");
+        });
+      });
+    </script>
+  </body>
+</html>
